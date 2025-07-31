@@ -1,0 +1,21 @@
+name : Bandit security check 
+
+on:
+  push:
+    branches: ['main']
+
+jobs: 
+  securitycheck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code on the repo
+        uses: actions/checkout@v4
+
+      - name: Run bandit security scan
+        uses: mdegis/bandit-action@v1.0
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          path: "."
+          level: medium
+          confidence: medium
+          exit_zero: False
